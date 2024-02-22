@@ -166,7 +166,7 @@ window.addEventListener("mouseup", () => {mouseDown = false;});
 // });
 
 
-window.addEventListener("mousemove", (e) => {
+function handleMove(event){
     if(mouseDown){
         rgb =[  
             Math.round((e.pageX / sizes.width) * 255),
@@ -180,4 +180,7 @@ window.addEventListener("mousemove", (e) => {
        //gsap.to(mesh.scale, {x: num*2, y: num2*2, z: 1, duration: 0.7})
        gsap.to(mesh.material.color, {r: rgb[0] / 255, g: rgb[1] / 255, b: rgb[2]/255, duration: 0.7})
     }
-});
+}
+window.addEventListener("mousemove", handleMove);
+window.addEventListener("touchstart", handleMove);
+window.addEventListener("touchmove", handleMove);
