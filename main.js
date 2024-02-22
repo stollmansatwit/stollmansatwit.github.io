@@ -182,17 +182,3 @@ window.addEventListener("mousemove", (e) => {
         gsap.to(mesh.material.color, { r: rgb[0] / 255, g: rgb[1] / 255, b: rgb[2] / 255, duration: 0.7 })
     }
 });
-
-window.addEventListener("touchmove", (e) => {
-    rgb = [
-        Math.round((e.pageX / sizes.width) * 255),
-        Math.round((e.pageY / sizes.height) * 255),
-        150
-
-    ];
-    //Animate
-    let num = e.pageX / sizes.width;
-    let num2 = e.pageY / sizes.height;
-    //gsap.to(mesh.scale, {x: num*2, y: num2*2, z: 1, duration: 0.7})
-    gsap.to(mesh.material.color, { r: rgb[0] / 255, g: rgb[1] / 255, b: rgb[2] / 255, duration: 0.7 })
-});
