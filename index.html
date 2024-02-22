@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+    <nav>
+      <a href="/">Donut</a>
+      <ul>
+        <li><a href="https://www.google.com" target = "_blank">Explore</a></li>
+        <li><a href="https://www.linkedin.com/in/samuel-stollman" target = "_blank">Connect</a></li>
+        <li><input type = "checkbox" id = "displacement" onClick = "myFunction()">Add Displacement Map</li>
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
+        </div>
+      </ul>
+    </nav>
+    <h1 class="title">Give it a Spin!</h1>
+    <div id="app"></div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+
