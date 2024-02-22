@@ -16,12 +16,12 @@ const material = new THREE.MeshPhongMaterial({
     color: 0xffc670,
     flatShading: true,
     shininess: 100,
-    
+
     displacementMap: new THREE.TextureLoader().load(link),
     displacementScale: 0,
 
-  });
-  
+});
+
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
@@ -80,12 +80,12 @@ const ischecked = false;
 document.getElementById("displacement").addEventListener("click", myFunction);
 function myFunction() {
     var checkBox = document.getElementById("displacement");
-    if (checkBox.checked == true){
+    if (checkBox.checked == true) {
         //Displacement Map
-        gsap.to(material, {displacementScale: 1})
+        gsap.to(material, { displacementScale: 1 })
     } else {
         //No Displacement Map
-        gsap.to(material, {displacementScale: 0})
+        gsap.to(material, { displacementScale: 0 })
     }
 }
 
@@ -100,58 +100,58 @@ slider.style.display = "none";
 const raycaster = new THREE.Raycaster();
 
 // Mouse vector 
-const mouse = new THREE.Vector2(); 
+const mouse = new THREE.Vector2();
 
 // Bind mouse move event
 window.addEventListener('mousemove', onMouseMove);
 
 function onMouseMove(event) {
-  // Update the mouse variable
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1; 
+    // Update the mouse variable
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
 const loop = () => {
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(scene.children);
-    if(intersects.length > 0) {
+    if (intersects.length > 0) {
         // Hovered
         // Grow it 50% in size
-        gsap.to(mesh.scale, { x: 1.5, y: 1.5, z: 1.5});
+        gsap.to(mesh.scale, { x: 1.5, y: 1.5, z: 1.5 });
         //title fade out
-        gsap.to(".title", {y: 0, opacity: 0})
-        
-        
-        
-        
-      }
+        gsap.to(".title", { y: 0, opacity: 0 })
+
+
+
+
+    }
     else {
         // Not hovered
         // Shrink it back down
-        gsap.to(mesh.scale, { x: 1, y: 1, z: 1});
+        gsap.to(mesh.scale, { x: 1, y: 1, z: 1 });
         // Title fade in
-        gsap.to(".title", {y: 0, opacity: 1})
+        gsap.to(".title", { y: 0, opacity: 1 })
 
-        }
+    }
     controls.update();
     renderer.render(scene, camera);
     window.requestAnimationFrame(loop);
-    
+
 };
 loop();
 
 
 //Timeline Magic
 const tl = gsap.timeline({ defaults: { duration: 1 } });
-tl.fromTo(mesh.scale, {z:0, y:0, x:0}, {z:1, y:1, x:1});
-tl.fromTo("nav",{y: -50, opacity: 0}, {y: 0, opacity: 1});
-tl.fromTo(".title", {opacity: 0}, {opacity: 1},);
+tl.fromTo(mesh.scale, { z: 0, y: 0, x: 0 }, { z: 1, y: 1, x: 1 });
+tl.fromTo("nav", { y: -50, opacity: 0 }, { y: 0, opacity: 1 });
+tl.fromTo(".title", { opacity: 0 }, { opacity: 1 },);
 
 //Mouse animation color
 let mouseDown = false;
 let rgb = [];
-window.addEventListener("mousedown", () => {mouseDown = true;});
-window.addEventListener("mouseup", () => {mouseDown = false;});
+window.addEventListener("mousedown", () => { mouseDown = true; });
+window.addEventListener("mouseup", () => { mouseDown = false; });
 
 //Animate on window hover
 
@@ -166,21 +166,33 @@ window.addEventListener("mouseup", () => {mouseDown = false;});
 // });
 
 
-function handleMove(event){
-    if(mouseDown){
-        rgb =[  
+
+window.addEventListener("mousemove", (e) => {
+    if (mouseDown) {
+        rgb = [
             Math.round((e.pageX / sizes.width) * 255),
             Math.round((e.pageY / sizes.height) * 255),
             150
-            
+
         ];
-       //Animate
-       let num = e.pageX / sizes.width;
-       let num2 = e.pageY / sizes.height;
-       //gsap.to(mesh.scale, {x: num*2, y: num2*2, z: 1, duration: 0.7})
-       gsap.to(mesh.material.color, {r: rgb[0] / 255, g: rgb[1] / 255, b: rgb[2]/255, duration: 0.7})
+        //Animate
+        let num = e.pageX / sizes.width;
+        let num2 = e.pageY / sizes.height;
+        //gsap.to(mesh.scale, {x: num*2, y: num2*2, z: 1, duration: 0.7})
+        gsap.to(mesh.material.color, { r: rgb[0] / 255, g: rgb[1] / 255, b: rgb[2] / 255, duration: 0.7 })
     }
-}
-window.addEventListener("mousemove", handleMove);
-window.addEventListener("touchstart", handleMove);
-window.addEventListener("touchmove", handleMove);
+});
+
+window.addEventListener("touchmove", (e) => {
+    rgb = [
+        Math.round((e.pageX / sizes.width) * 255),
+        Math.round((e.pageY / sizes.height) * 255),
+        150
+
+    ];
+    //Animate
+    let num = e.pageX / sizes.width;
+    let num2 = e.pageY / sizes.height;
+    //gsap.to(mesh.scale, {x: num*2, y: num2*2, z: 1, duration: 0.7})
+    gsap.to(mesh.material.color, { r: rgb[0] / 255, g: rgb[1] / 255, b: rgb[2] / 255, duration: 0.7 })
+});
