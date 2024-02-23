@@ -6,18 +6,29 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 //Scene
 const scene = new THREE.Scene();
 
-//Creating Sphere
+//Creating Donut
 const resolution = 200;
 const geometry = new THREE.TorusGeometry(3, 1.5, 200, 200)// const material = new THREE.MeshStandardMaterial({ color: "#00ff83" , roughness: .5, metalness: .2});
 const geometry2 = new THREE.SphereGeometry(3, 32, 32);
+let savedLinks = [
+    "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
+    "https://generations.krea.ai/images/be0b235e-9a53-4789-b735-20ce43ff62bb.webp",
+    "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
+    "https://www.shutterstock.com/image-illustration/abstract-black-white-lines-art-600nw-1716477298.jpg",
+    "https://t4.ftcdn.net/jpg/04/43/18/67/360_F_443186712_DNJoCbUlLfAyBozDGS8buHdqDn8cgt3N.jpg",
+    "https://as2.ftcdn.net/v2/jpg/03/74/43/45/1000_F_374434586_WYizDJCJhPeRwyHPUACSMAyQyGNBuEKG.jpg",
+    "https://t3.ftcdn.net/jpg/01/00/14/64/360_F_100146497_A3XOehSzMX2WmdqdNHYKfiuKClz5pLDp.jpg",
+    ]
 
-let link = "https://as2.ftcdn.net/v2/jpg/00/80/70/29/1000_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg"
+let link = savedLinks[Math.floor(Math.random() * savedLinks.length)];
+
+let loader = new THREE.TextureLoader();
 const material = new THREE.MeshPhongMaterial({
     color: 0xffc670,
     flatShading: true,
     shininess: 100,
 
-    displacementMap: new THREE.TextureLoader().load(link),
+    displacementMap: loader.load(link),
     displacementScale: 0,
 
 });
@@ -49,7 +60,7 @@ scene.add(camera);
 const canvas = document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(2);
+renderer.setPixelRatio(1);
 renderer.render(scene, camera);
 
 
@@ -77,15 +88,22 @@ window.addEventListener("resize", () => {
 
 const ischecked = false;
 //checkbox event listener
-document.getElementById("displacement").addEventListener("click", myFunction);
-function myFunction() {
+document.getElementById("displacement").addEventListener("click", checkboxBehavior);
+function checkboxBehavior() {
     var checkBox = document.getElementById("displacement");
     if (checkBox.checked == true) {
         //Displacement Map
         gsap.to(material, { displacementScale: 1 })
     } else {
-        //No Displacement Map
-        gsap.to(material, { displacementScale: 0 })
+        //recalculate random link for every checkbox click
+        let newlink = savedLinks[Math.floor(Math.random() * savedLinks.length)];
+        //wait until the material is updated to change the displacement map
+        gsap.to(material, { 
+            displacementScale: 0,
+            onComplete: () => {
+              material.displacementMap = loader.load(newlink);
+            }
+        });
     }
 }
 
