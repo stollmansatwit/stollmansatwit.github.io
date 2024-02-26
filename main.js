@@ -60,7 +60,7 @@ scene.add(camera);
 const canvas = document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(1);
+renderer.setPixelRatio(2);
 renderer.render(scene, camera);
 
 
@@ -100,6 +100,7 @@ function checkboxBehavior() {
         //wait until the material is updated to change the displacement map
         gsap.to(material, { 
             displacementScale: 0,
+            duration: 1,
             onComplete: () => {
               material.displacementMap = loader.load(newlink);
             }
