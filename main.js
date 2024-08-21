@@ -127,25 +127,11 @@ const mouse = new THREE.Vector2();
 
 // Bind mouse move event
 window.addEventListener('mousemove', onMouseMove);
-window.addEventListener('click', onMouseClick);
 
 function onMouseMove(event) {
     // Update the mouse variable
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
-
-function onMouseClick(event) {
-    // Update the mouse variable
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    // Raycast
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children);
-    if (intersects.length > 0) {
-        window.location.href = 'index2.html';
-    }
 }
 
 const loop = () => {
