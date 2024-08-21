@@ -4,29 +4,66 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>About Me</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      header {
+        background-color: #2bbee3;
+        color: #fff;
+        padding: 1rem;
+        text-align: center;
+      }
+      nav a {
+        color: #fff;
+        margin: 0 1rem;
+        text-decoration: none;
+      }
+      .container {
+        padding: 2rem;
+      }
+      footer {
+        background-color: #2bbee3;
+        color: #fff;
+        text-align: center;
+        padding: 1rem;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+    </style>
   </head>
   <body>
-    <canvas class="webgl"></canvas>
-    <nav>
-      <a href="/">Donut</a>
+    <header>
+      <h1>About Me</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="./about.html">About</a>
+      </nav>
+    </header>
+    <div class="container">
+      <h2>Samuel Stollman</h2>
+      <p>Hello! I'm Samuel Stollman, a passionate web developer with a keen interest in creating interactive and dynamic web applications. I enjoy learning new technologies and applying them to solve real-world problems.</p>
+      <h3>Skills</h3>
       <ul>
-        <li><a href="https://www.google.com" target = "_blank">Explore</a></li>
-        <li><a href="https://www.linkedin.com/in/samuel-stollman" target = "_blank">Connect</a></li>
-        <li><a href="https://github.com/stollmansatwit" target = "_blank">Github</a></li>
-        <li><a href="./about.html">About</a></li>
-        <li><input type = "checkbox" id = "displacement">Add Random Displacement Map</li>
-        <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
-        </div>
+        <li>HTML, CSS, JavaScript</li>
+        <li>React, Vue.js</li>
+        <li>Node.js, Express</li>
+        <li>Three.js</li>
       </ul>
-    </nav>
-    <h1 class="title">Give it a Spin!</h1>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+      <h3>Contact</h3>
+      <p>You can reach me at <a href="mailto:stollmans@wit.edu">stollmans@wit.edus</a></p>
+    </div>
+    <footer>
+      <p>&copy; 2023 Samuel Stollman</p>
+    </footer>
   </body>
 </html>
