@@ -1,4 +1,4 @@
-import * as THREE from  './libs/three/build/three.module.js';
+import * as THREE from  'three';
 import './style.css';
 import gsap from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
