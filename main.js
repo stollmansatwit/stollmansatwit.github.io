@@ -1,4 +1,4 @@
-import * as THREE from  'three';
+import * as THREE from 'three';
 import '/style.css';
 import gsap from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -21,7 +21,12 @@ let savedLinks = [
     "https://media.istockphoto.com/id/1325685263/photo/4k-black-and-white-organic-polygon-shape-background.jpg?s=612x612&w=0&k=20&c=EXTB0-0SGBmMfYAX4U84v9TCKNC8_lG4IJoaXlsomoE=",
     "https://media.istockphoto.com/id/973897096/photo/abstract-curves-parametric-curved-lines-and-shapes-4k-seamless-background.jpg?s=612x612&w=0&k=20&c=E4AVFVJxxpfZfrwt8m5Io0ZOGA2EljGnkw7gHq77vpk=",
     "https://media.istockphoto.com/id/1269606281/photo/jagged-rock-ambient-occlusion-map-texture-grayscale-ao-map.jpg?s=612x612&w=0&k=20&c=hFVOekZ4UBdl-V94_pGjKxgiWX-YqsmGSfnXxD-h6wY=",
-    "https://media.istockphoto.com/id/1421682971/vector/honeycomb-style-pixelated-word-map-good-for-3d-texture-bump-or-displacement-map-can-be-used.jpg?s=612x612&w=0&k=20&c=AClr9e69YR8R92TFPqpzu6qYx2bhEJ9opcZq2khqNio="
+    "https://media.istockphoto.com/id/1421682971/vector/honeycomb-style-pixelated-word-map-good-for-3d-texture-bump-or-displacement-map-can-be-used.jpg?s=612x612&w=0&k=20&c=AClr9e69YR8R92TFPqpzu6qYx2bhEJ9opcZq2khqNio=",
+    "https://www.shutterstock.com/shutterstock/videos/1069022458/thumb/1.jpg?ip=x480",
+    
+    "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
+
 
     ]
 
