@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    align-items: center;
 }
 
 body,
@@ -25,6 +26,7 @@ nav {
    padding: 4rem 8rem;
    display: flex;
    justify-content: space-between;
+   align-items: center;
 }
 
 nav a {
