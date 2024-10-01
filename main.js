@@ -10,8 +10,8 @@ const scene = new THREE.Scene();
 const resolution = 200;
 const geometry = new THREE.TorusGeometry(3, 1.5, 200, 200)// const material = new THREE.MeshStandardMaterial({ color: "#00ff83" , roughness: .5, metalness: .2});
 const geometry2 = new THREE.SphereGeometry(3, 32, 32);
-const geometry3 = new THREE.BoxGeometry(3, 3, 3,32,32);
-const geometry4 = new THREE.SphereGeometry(3, 32, 16).scale(2, 1, 1);
+const geometry3 = new THREE.BoxGeometry(3, 3, 3, 32, 32);
+const geometry4 = new THREE.SphereGeometry(3, 50, 32).scale(2, 1, 1);
 let savedLinks = [
     "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
     "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
@@ -98,6 +98,7 @@ window.addEventListener("resize", () => {
     renderer.setSize(sizes.width, sizes.height);
 });
 
+//Checkboxes
 const ischecked = false;
 //checkbox event listener
 document.getElementById("displacement").addEventListener("click", checkboxBehavior);
