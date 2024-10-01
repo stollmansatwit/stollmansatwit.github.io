@@ -25,8 +25,7 @@ nav {
    position: relative;
    padding: 4rem 8rem;
    display: flex;
-   justify-content: space-between;
-   align-items: center;
+   justify-content: center;
 }
 
 nav a {
@@ -41,12 +40,25 @@ nav ul{
     display: flex;
     list-style: none;
     gap: 4rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
   
   li {
     margin: 1px 0;
   }
+
+  #navTitle {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+    font-weight: bold;
+    position: absolute; /* Position it absolutely */
+    top: 1rem; /* Adjust the top position */
+    left: 1rem; /* Adjust the left position */
+}
 
 .title {
     position: absolute;
@@ -57,4 +69,80 @@ nav ul{
     top: 20%;
     transform: translate(-50%, -25%);
     text-align: center;
+}
+
+.sidebar {
+    position: fixed;
+    top: 20%;
+    right:0;
+    width: 200px;
+    height: 100%;
+    background-color: #0000006b;
+    padding: 2rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 1rem 0;
+    color: white;
+}
+
+.sidebar input[type="checkbox"],
+.sidebar .slider {
+    margin-right: 10px;
+}
+
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1200px) {
+    nav {
+        padding: 2rem;
+    }
+
+    nav ul {
+        gap: 1.5rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .title {
+        font-size: 2rem;
+        top: 15%;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 0.5rem;
+    }
+
+    nav a {
+        font-size: 1.2rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+        top: 10%;
+    }
 }

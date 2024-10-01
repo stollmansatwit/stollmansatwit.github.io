@@ -10,6 +10,8 @@ const scene = new THREE.Scene();
 const resolution = 200;
 const geometry = new THREE.TorusGeometry(3, 1.5, 200, 200)// const material = new THREE.MeshStandardMaterial({ color: "#00ff83" , roughness: .5, metalness: .2});
 const geometry2 = new THREE.SphereGeometry(3, 32, 32);
+const geometry3 = new THREE.BoxGeometry(3, 3, 3,32,32);
+const geometry4 = new THREE.SphereGeometry(3, 32, 16).scale(2, 1, 1);
 let savedLinks = [
     "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
     "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
@@ -43,7 +45,7 @@ const material = new THREE.MeshPhongMaterial({
 
 });
 
-const mesh = new THREE.Mesh(geometry, material);
+let mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
 //Sizes
@@ -117,6 +119,94 @@ function checkboxBehavior() {
     }
 }
 
+//checkbox event listener for wireframe
+document.getElementById("wireframe").addEventListener("click", checkboxBehavior2);
+function checkboxBehavior2() {
+    var checkBox = document.getElementById("wireframe");
+    if (checkBox.checked == true) {
+        //Wireframe
+        material.wireframe = true;
+    } else {
+        material.wireframe = false;
+    }
+}
+
+
+//checkbox event listener for zoom
+document.getElementById("zoom").addEventListener("click", checkboxBehavior3);
+function checkboxBehavior3() {
+    var checkBox = document.getElementById("zoom");
+    if (checkBox.checked == true) {
+        //Camera zoom
+        controls.enableZoom = true;
+    } else {
+        controls.enableZoom = false;
+    }
+}
+
+//checkbox event listener for sphere
+document.getElementById("sphere").addEventListener("click", checkboxBehavior4);
+function checkboxBehavior4() {
+  var checkBox = document.getElementById("sphere");
+  var cubeCheckBox = document.getElementById("cube");
+  var ellipsoidCheckBox = document.getElementById("ellipsoid");
+  if (checkBox.checked == true) {
+    // Uncheck cube and ellipsoid checkbox
+    cubeCheckBox.checked = false;
+    ellipsoidCheckBox.checked = false;
+    //Sphere
+    scene.remove(mesh);
+    mesh = new THREE.Mesh(geometry2, material);
+    scene.add(mesh);
+  } else {
+    scene.remove(mesh);
+    mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+  }
+}
+
+//checkbox event listener for cube
+document.getElementById("cube").addEventListener("click", checkboxBehavior5);
+function checkboxBehavior5() {
+  var checkBox = document.getElementById("cube");
+  var sphereCheckBox = document.getElementById("sphere");
+  var ellipsoidCheckBox = document.getElementById("ellipsoid");
+  if (checkBox.checked == true) {
+    // Uncheck sphere and elipsoid checkbox
+    sphereCheckBox.checked = false;
+    ellipsoidCheckBox.checked = false;
+    //Cube
+    scene.remove(mesh);
+    mesh = new THREE.Mesh(geometry3, material);
+    scene.add(mesh);
+  } else {
+    scene.remove(mesh);
+    mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+  }
+}
+
+document.getElementById("ellipsoid").addEventListener("click", checkboxBehavior6);
+function checkboxBehavior6() {
+  var checkBox = document.getElementById("ellipsoid");
+  var sphereCheckBox = document.getElementById("sphere");
+  var cubeCheckBox = document.getElementById("cube");
+  if (checkBox.checked == true) {
+    // Uncheck sphere and elipsoid checkbox
+    sphereCheckBox.checked = false;
+    cubeCheckBox.checked = false;
+    //Cube
+    scene.remove(mesh);
+    mesh = new THREE.Mesh(geometry4, material);
+    scene.add(mesh);
+  } else {
+    scene.remove(mesh);
+    mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+  }
+}
+
+
 // Get slider element  
 const slider = document.getElementById("myRange");
 //make slider invisible
@@ -158,7 +248,7 @@ const loop = () => {
         // Shrink it back down
         gsap.to(mesh.scale, { x: 1, y: 1, z: 1 });
         // Title fade in
-        gsap.to(".title", { y: 0, opacity: 1 })
+        gsap.to(".title", { y: 0, opacity: 1 })       
 
     }
     controls.update();
