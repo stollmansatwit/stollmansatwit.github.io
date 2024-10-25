@@ -9,7 +9,7 @@ const scene = new THREE.Scene();
 //Creating Donut
 const resolution = 200;
 const geometry = new THREE.TorusGeometry(3, 1.5, 200, 200)// const material = new THREE.MeshStandardMaterial({ color: "#00ff83" , roughness: .5, metalness: .2});
-const geometry2 = new THREE.SphereGeometry(3, 32, 32);
+const geometry2 = new THREE.SphereGeometry(3, 64, 64);
 const geometry3 = new THREE.BoxGeometry(3, 3, 3, 32, 32);
 const geometry4 = new THREE.SphereGeometry(3, 50, 32).scale(2, 1, 1);
 let savedLinks = [
@@ -28,7 +28,7 @@ let savedLinks = [
     
     "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
-
+    "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
 
     ]
 
