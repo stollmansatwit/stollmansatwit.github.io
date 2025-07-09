@@ -9,27 +9,26 @@ const scene = new THREE.Scene();
 //Creating Donut
 const resolution = 200;
 const geometry = new THREE.TorusGeometry(3, 1.5, 200, 200)// const material = new THREE.MeshStandardMaterial({ color: "#00ff83" , roughness: .5, metalness: .2});
-const geometry2 = new THREE.SphereGeometry(3, 64, 64);
-const geometry3 = new THREE.BoxGeometry(3, 3, 3, 32, 32);
+const geometry2 = new THREE.SphereGeometry(3, 256, 256);
+const geometry3 = new THREE.BoxGeometry(3, 3, 3, 256, 256);
 const geometry4 = new THREE.SphereGeometry(3, 50, 32).scale(2, 1, 1);
 let savedLinks = [
-    "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
-    "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
-    "https://www.shutterstock.com/image-illustration/abstract-black-white-lines-art-600nw-1716477298.jpg",
-    "https://t4.ftcdn.net/jpg/04/43/18/67/360_F_443186712_DNJoCbUlLfAyBozDGS8buHdqDn8cgt3N.jpg",
-    "https://as2.ftcdn.net/v2/jpg/03/74/43/45/1000_F_374434586_WYizDJCJhPeRwyHPUACSMAyQyGNBuEKG.jpg",
-    "https://t3.ftcdn.net/jpg/01/00/14/64/360_F_100146497_A3XOehSzMX2WmdqdNHYKfiuKClz5pLDp.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/Coccinella-septempunctata-15-fws.jpg",
-    "https://media.istockphoto.com/id/1325685263/photo/4k-black-and-white-organic-polygon-shape-background.jpg?s=612x612&w=0&k=20&c=EXTB0-0SGBmMfYAX4U84v9TCKNC8_lG4IJoaXlsomoE=",
-    "https://media.istockphoto.com/id/973897096/photo/abstract-curves-parametric-curved-lines-and-shapes-4k-seamless-background.jpg?s=612x612&w=0&k=20&c=E4AVFVJxxpfZfrwt8m5Io0ZOGA2EljGnkw7gHq77vpk=",
-    "https://media.istockphoto.com/id/1269606281/photo/jagged-rock-ambient-occlusion-map-texture-grayscale-ao-map.jpg?s=612x612&w=0&k=20&c=hFVOekZ4UBdl-V94_pGjKxgiWX-YqsmGSfnXxD-h6wY=",
-    "https://media.istockphoto.com/id/1421682971/vector/honeycomb-style-pixelated-word-map-good-for-3d-texture-bump-or-displacement-map-can-be-used.jpg?s=612x612&w=0&k=20&c=AClr9e69YR8R92TFPqpzu6qYx2bhEJ9opcZq2khqNio=",
-    "https://www.shutterstock.com/shutterstock/videos/1069022458/thumb/1.jpg?ip=x480",
-    
-    "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
-    "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
-
+    // "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
+    // "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
+    // "https://www.shutterstock.com/image-illustration/abstract-black-white-lines-art-600nw-1716477298.jpg",
+    // "https://t4.ftcdn.net/jpg/04/43/18/67/360_F_443186712_DNJoCbUlLfAyBozDGS8buHdqDn8cgt3N.jpg",
+    // "https://as2.ftcdn.net/v2/jpg/03/74/43/45/1000_F_374434586_WYizDJCJhPeRwyHPUACSMAyQyGNBuEKG.jpg",
+    // "https://t3.ftcdn.net/jpg/01/00/14/64/360_F_100146497_A3XOehSzMX2WmdqdNHYKfiuKClz5pLDp.jpg",
+    // "https://upload.wikimedia.org/wikipedia/commons/7/77/Coccinella-septempunctata-15-fws.jpg",
+    // "https://media.istockphoto.com/id/1325685263/photo/4k-black-and-white-organic-polygon-shape-background.jpg?s=612x612&w=0&k=20&c=EXTB0-0SGBmMfYAX4U84v9TCKNC8_lG4IJoaXlsomoE=",
+    // "https://media.istockphoto.com/id/973897096/photo/abstract-curves-parametric-curved-lines-and-shapes-4k-seamless-background.jpg?s=612x612&w=0&k=20&c=E4AVFVJxxpfZfrwt8m5Io0ZOGA2EljGnkw7gHq77vpk=",
+    // "https://media.istockphoto.com/id/1269606281/photo/jagged-rock-ambient-occlusion-map-texture-grayscale-ao-map.jpg?s=612x612&w=0&k=20&c=hFVOekZ4UBdl-V94_pGjKxgiWX-YqsmGSfnXxD-h6wY=",
+    // "https://media.istockphoto.com/id/1421682971/vector/honeycomb-style-pixelated-word-map-good-for-3d-texture-bump-or-displacement-map-can-be-used.jpg?s=612x612&w=0&k=20&c=AClr9e69YR8R92TFPqpzu6qYx2bhEJ9opcZq2khqNio=",
+    // "https://www.shutterstock.com/shutterstock/videos/1069022458/thumb/1.jpg?ip=x480",
+    // "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
+    // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
+    // "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
+    "public/Aarush_Pointing_Smiling.png"
     ]
 
 let link = savedLinks[Math.floor(Math.random() * savedLinks.length)];
