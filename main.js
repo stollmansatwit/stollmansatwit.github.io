@@ -28,7 +28,7 @@ let savedLinks = [
     // "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
     // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
     // "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
-    "public/Aarush_Pointing_Smiling.png"
+    "/Aarush_Pointing_Smiling.png"
     ]
 
 let link = savedLinks[Math.floor(Math.random() * savedLinks.length)];
