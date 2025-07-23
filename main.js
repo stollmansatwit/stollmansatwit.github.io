@@ -3,32 +3,41 @@ import '/style.css';
 import gsap from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-//Scene
-const scene = new THREE.Scene();
+// Check if screen is large enough for 3D rendering
+function isScreenLargeEnough() {
+    return window.innerWidth >= 1000;
+}
+
+// Only initialize Three.js if screen is large enough
+if (isScreenLargeEnough()) {
+    //Scene
+    const scene = new THREE.Scene();
+
+
 
 //Creating Donut
-const resolution = 200;
-const geometry = new THREE.TorusGeometry(3, 1.5, 200, 200)// const material = new THREE.MeshStandardMaterial({ color: "#00ff83" , roughness: .5, metalness: .2});
-const geometry2 = new THREE.SphereGeometry(3, 256, 256);
-const geometry3 = new THREE.BoxGeometry(3, 3, 3, 256, 256);
-const geometry4 = new THREE.SphereGeometry(3, 50, 32).scale(2, 1, 1);
+let resolution = 32; // Start with lower resolution for better performance
+let geometry = new THREE.TorusGeometry(3, 1.5, resolution, resolution); // torus
+let geometry2 = new THREE.SphereGeometry(3, resolution, resolution); // sphere
+let geometry3 = new THREE.BoxGeometry(3, 3, 3, resolution, resolution); // cube
+let geometry4 = new THREE.SphereGeometry(3, resolution, resolution).scale(2, 1, 1); // ellipsoid
 let savedLinks = [
-    // "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
-    // "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
-    // "https://www.shutterstock.com/image-illustration/abstract-black-white-lines-art-600nw-1716477298.jpg",
-    // "https://t4.ftcdn.net/jpg/04/43/18/67/360_F_443186712_DNJoCbUlLfAyBozDGS8buHdqDn8cgt3N.jpg",
-    // "https://as2.ftcdn.net/v2/jpg/03/74/43/45/1000_F_374434586_WYizDJCJhPeRwyHPUACSMAyQyGNBuEKG.jpg",
-    // "https://t3.ftcdn.net/jpg/01/00/14/64/360_F_100146497_A3XOehSzMX2WmdqdNHYKfiuKClz5pLDp.jpg",
-    // "https://upload.wikimedia.org/wikipedia/commons/7/77/Coccinella-septempunctata-15-fws.jpg",
-    // "https://media.istockphoto.com/id/1325685263/photo/4k-black-and-white-organic-polygon-shape-background.jpg?s=612x612&w=0&k=20&c=EXTB0-0SGBmMfYAX4U84v9TCKNC8_lG4IJoaXlsomoE=",
-    // "https://media.istockphoto.com/id/973897096/photo/abstract-curves-parametric-curved-lines-and-shapes-4k-seamless-background.jpg?s=612x612&w=0&k=20&c=E4AVFVJxxpfZfrwt8m5Io0ZOGA2EljGnkw7gHq77vpk=",
-    // "https://media.istockphoto.com/id/1269606281/photo/jagged-rock-ambient-occlusion-map-texture-grayscale-ao-map.jpg?s=612x612&w=0&k=20&c=hFVOekZ4UBdl-V94_pGjKxgiWX-YqsmGSfnXxD-h6wY=",
-    // "https://media.istockphoto.com/id/1421682971/vector/honeycomb-style-pixelated-word-map-good-for-3d-texture-bump-or-displacement-map-can-be-used.jpg?s=612x612&w=0&k=20&c=AClr9e69YR8R92TFPqpzu6qYx2bhEJ9opcZq2khqNio=",
-    // "https://www.shutterstock.com/shutterstock/videos/1069022458/thumb/1.jpg?ip=x480",
-    // "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
-    // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
-    // "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
-    "/Aarush_Pointing_Smiling.png",
+    "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/044af924-3964-4328-b96c-1fb2ef48c485/dbr4tgs-1e48ec7d-ebf9-4677-84e0-15fcffa8f7bf.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA0NGFmOTI0LTM5NjQtNDMyOC1iOTZjLTFmYjJlZjQ4YzQ4NVwvZGJyNHRncy0xZTQ4ZWM3ZC1lYmY5LTQ2NzctODRlMC0xNWZjZmZhOGY3YmYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Q-Rkx93uwhnJ0vHNOzBlY5-BEcN1fNqIzmsL9gxQfJo",
+    "https://t4.ftcdn.net/jpg/00/80/70/29/360_F_80702927_FhNtSKQib9jPEem2z3xC8ANG0uqYyBk3.jpg",
+    "https://www.shutterstock.com/image-illustration/abstract-black-white-lines-art-600nw-1716477298.jpg",
+    "https://t4.ftcdn.net/jpg/04/43/18/67/360_F_443186712_DNJoCbUlLfAyBozDGS8buHdqDn8cgt3N.jpg",
+    "https://as2.ftcdn.net/v2/jpg/03/74/43/45/1000_F_374434586_WYizDJCJhPeRwyHPUACSMAyQyGNBuEKG.jpg",
+    "https://t3.ftcdn.net/jpg/01/00/14/64/360_F_100146497_A3XOehSzMX2WmdqdNHYKfiuKClz5pLDp.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/77/Coccinella-septempunctata-15-fws.jpg",
+    "https://media.istockphoto.com/id/1325685263/photo/4k-black-and-white-organic-polygon-shape-background.jpg?s=612x612&w=0&k=20&c=EXTB0-0SGBmMfYAX4U84v9TCKNC8_lG4IJoaXlsomoE=",
+    "https://media.istockphoto.com/id/973897096/photo/abstract-curves-parametric-curved-lines-and-shapes-4k-seamless-background.jpg?s=612x612&w=0&k=20&c=E4AVFVJxxpfZfrwt8m5Io0ZOGA2EljGnkw7gHq77vpk=",
+    "https://media.istockphoto.com/id/1269606281/photo/jagged-rock-ambient-occlusion-map-texture-grayscale-ao-map.jpg?s=612x612&w=0&k=20&c=hFVOekZ4UBdl-V94_pGjKxgiWX-YqsmGSfnXxD-h6wY=",
+    "https://media.istockphoto.com/id/1421682971/vector/honeycomb-style-pixelated-word-map-good-for-3d-texture-bump-or-displacement-map-can-be-used.jpg?s=612x612&w=0&k=20&c=AClr9e69YR8R92TFPqpzu6qYx2bhEJ9opcZq2khqNio=",
+    "https://www.shutterstock.com/shutterstock/videos/1069022458/thumb/1.jpg?ip=x480",
+    "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
+    "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
+    
     ]
 
 let link = savedLinks[Math.floor(Math.random() * savedLinks.length)];
@@ -69,10 +78,28 @@ scene.add(camera);
 
 //Renderer
 const canvas = document.querySelector(".webgl");
-const renderer = new THREE.WebGLRenderer({ canvas });
+const renderer = new THREE.WebGLRenderer({ 
+    canvas,
+    antialias: false,
+    alpha: false,
+    preserveDrawingBuffer: false,
+    powerPreference: "default"
+});
+renderer.setClearColor(0x000000, 1.0);
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(2);
+renderer.setPixelRatio(1); // Force pixel ratio to 1 for better performance
 renderer.render(scene, camera);
+
+// Handle WebGL context loss
+canvas.addEventListener('webglcontextlost', (event) => {
+    event.preventDefault();
+    console.log('WebGL context lost');
+});
+
+canvas.addEventListener('webglcontextrestored', () => {
+    console.log('WebGL context restored');
+    // Reinitialize if needed
+});
 
 
 //Controls
@@ -86,26 +113,56 @@ controls.autoRotateSpeed = 6;
 controls.rotateSpeed = 1;
 
 
-//Resize
+//Resize - optimized with debouncing
+let resizeTimeout;
 window.addEventListener("resize", () => {
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
+    if (!isScreenLargeEnough()) {
+        return; // Don't update if screen is too small
+    }
+    
+    // Debounce resize events for better performance
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
 
-    camera.aspect = sizes.width / sizes.height;
-    camera.updateProjectionMatrix();
+        camera.aspect = sizes.width / sizes.height;
+        camera.updateProjectionMatrix();
 
-    renderer.setSize(sizes.width, sizes.height);
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(1);
+        renderer.render(scene, camera); // Force a render after resize
+    }, 100);
 });
+
 
 //Checkboxes
 const ischecked = false;
 //checkbox event listener
-document.getElementById("displacement").addEventListener("click", checkboxBehavior);
-function checkboxBehavior() {
+document.getElementById("displacement").addEventListener("click", displacementCheckboxBehavior);
+function displacementCheckboxBehavior() {
     var checkBox = document.getElementById("displacement");
+    var aarushCheckBox = document.getElementById("aarush");
     if (checkBox.checked == true) {
-        //Displacement Map
-        gsap.to(material, { displacementScale: 1 })
+        //Uncheck aarush checkbox to ensure mutual exclusivity
+        aarushCheckBox.checked = false;
+        
+        // Check if aarush was previously checked
+        if (material.displacementScale > 0) {
+            // Aarush was active, so animate down first, then back up with new texture
+            gsap.to(material, { 
+                displacementScale: 0,
+                onComplete: () => {
+                    // Generate new random texture and animate back up
+                    let newlink = savedLinks[Math.floor(Math.random() * savedLinks.length)];
+                    material.displacementMap = loader.load(newlink);
+                    gsap.to(material, { displacementScale: 1 });
+                }
+            });
+        } else {
+            // No previous displacement, just animate up
+            gsap.to(material, { displacementScale: 1 })
+        }
     } else {
         //recalculate random link for every checkbox click
         let newlink = savedLinks[Math.floor(Math.random() * savedLinks.length)];
@@ -118,6 +175,37 @@ function checkboxBehavior() {
         });
     }
 }
+
+//checkbox event listener
+document.getElementById("aarush").addEventListener("click", aarushCheckboxBehavior);
+function aarushCheckboxBehavior() {
+    var checkBox = document.getElementById("aarush");
+    var checkBox2 = document.getElementById("displacement");
+    if (checkBox.checked == true) {
+        //Uncheck displacement checkbox
+        checkBox2.checked = false;
+        
+        // Check if displacement was previously active
+        if (material.displacementScale > 0) {
+            // Displacement was active, animate down first, then back up with Aarush texture
+            gsap.to(material, { 
+                displacementScale: 0,
+                onComplete: () => {
+                    material.displacementMap = loader.load("/Aarush_Pointing_Smiling.png");
+                    gsap.to(material, { displacementScale: 1 });
+                }
+            });
+        } else {
+            // No previous displacement, just load texture and animate up
+            material.displacementMap = loader.load("/Aarush_Pointing_Smiling.png");
+            gsap.to(material, { displacementScale: 1 });
+        }
+    } else {
+        //When unchecked, set displacement scale back to 0
+        gsap.to(material, { displacementScale: 0 })
+    }
+}
+
 
 //checkbox event listener for wireframe
 document.getElementById("wireframe").addEventListener("click", checkboxBehavior2);
@@ -209,8 +297,83 @@ function checkboxBehavior6() {
 
 // Get slider element  
 const slider = document.getElementById("myRange");
-//make slider invisible
-slider.style.display = "none";
+// Make slider visible for resolution control
+slider.style.display = "block";
+
+// Add resolution slider functionality
+slider.addEventListener("input", function() {
+    const newResolution = parseInt(this.value);
+    updateGeometryResolution(newResolution);
+});
+
+// Function to update geometry resolution
+function updateGeometryResolution(newRes) {
+    // Store current mesh material
+    const currentMaterial = mesh.material;
+    
+    // Remove current mesh
+    scene.remove(mesh);
+    
+    // Create new geometries with updated resolution
+    const newGeometry = new THREE.TorusGeometry(3, 1.5, newRes, newRes); // torus
+    const newGeometry2 = new THREE.SphereGeometry(3, newRes, newRes); // sphere
+    const newGeometry3 = new THREE.BoxGeometry(3, 3, 3, newRes, newRes); // cube
+    const newGeometry4 = new THREE.SphereGeometry(3, newRes, newRes).scale(2, 1, 1); // ellipsoid
+    
+    // Update global geometry variables
+    geometry.dispose(); // Clean up old geometry
+    geometry2.dispose();
+    geometry3.dispose();
+    geometry4.dispose();
+    
+    // Replace with new geometries
+    geometry = newGeometry;
+    geometry2 = newGeometry2;
+    geometry3 = newGeometry3;
+    geometry4 = newGeometry4;
+    
+    // Determine which geometry to use based on current checkboxes
+    let activeGeometry = geometry; // Default to torus
+    
+    if (document.getElementById("sphere").checked) {
+        activeGeometry = geometry2;
+    } else if (document.getElementById("cube").checked) {
+        activeGeometry = geometry3;
+    } else if (document.getElementById("ellipsoid").checked) {
+        activeGeometry = geometry4;
+    }
+    
+    // Create new mesh with updated geometry
+    mesh = new THREE.Mesh(activeGeometry, currentMaterial);
+    scene.add(mesh);
+    
+    // Update resolution display
+    updateResolutionDisplay(newRes);
+}
+
+// Function to update resolution display
+function updateResolutionDisplay(resolution) {
+    // Find or create resolution display element
+    let display = document.getElementById("resolution-display");
+    if (!display) {
+        display = document.createElement("div");
+        display.id = "resolution-display";
+        display.style.color = "white";
+        display.style.fontSize = "12px";
+        display.style.marginTop = "5px";
+        
+        // Add it after the slider
+        const sliderContainer = slider.parentElement;
+        sliderContainer.appendChild(display);
+    }
+    
+    // Calculate approximate vertex count
+    const vertexCount = resolution * resolution;
+    display.textContent = `Resolution: ${resolution} (~${vertexCount.toLocaleString()} vertices)`;
+}
+
+// Initialize resolution display
+updateResolutionDisplay(32);
 
 
 
@@ -329,4 +492,31 @@ window.addEventListener("mousemove", (e) => {
     if (mouseDown) {
         updateRGBAndAnimate(e);
     }
+});
+
+} // End of screen size check
+
+// Optimized global resize handler
+let globalResizeTimeout;
+window.addEventListener("resize", () => {
+    clearTimeout(globalResizeTimeout);
+    globalResizeTimeout = setTimeout(() => {
+        if (!isScreenLargeEnough()) {
+            // Screen became too small - could optionally reload page
+            return;
+        }
+        
+        // Only update Three.js sizes if it's initialized (screen is large enough)
+        if (typeof sizes !== 'undefined' && typeof camera !== 'undefined' && typeof renderer !== 'undefined') {
+            sizes.width = window.innerWidth;
+            sizes.height = window.innerHeight;
+
+            camera.aspect = sizes.width / sizes.height;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(sizes.width, sizes.height);
+            renderer.setPixelRatio(1);
+            renderer.render(scene, camera); // Force a render after resize
+        }
+    }, 100);
 });

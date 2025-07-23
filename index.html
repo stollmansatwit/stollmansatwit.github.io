@@ -1,44 +1,51 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/donut.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Donut App</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <canvas class="webgl"></canvas>
-    <nav>
-      <a href="/" id = "navTitle">Donut</a>
-      <ul>
-        <li><a href="https://www.google.com" target = "_blank">Explore</a></li>
-        <li><a href="https://www.linkedin.com/in/samuel-stollman" target = "_blank">Connect</a></li>
-        <li><a href="https://github.com/stollmansatwit" target = "_blank">Github</a></li>
-        <li><a href="https://drive.google.com/file/d/1ssoF0_21y5q3bDBWd7yJ-9_0nwgqrhcI/view?usp=sharing" target = "_blank">Resume</a></li>
-    </nav>
-      </ul>
-      <div class="sidebar">
-        <ul>
-          <li><input type="checkbox" id="displacement">Add Random Displacement Map</li>
-          <li><input type="checkbox" id="wireframe">Toggle Wireframe</li>
-          <li><input type="checkbox" id="zoom">Enable Zoom</li>
-          <li><input type="checkbox" id="sphere">Sphere</li>
-          <li><input type="checkbox" id="cube">Cube</li>
-          <li><input type="checkbox" id="ellipsoid">Ellipsoid</li>
-          <li>
-            <div class="slidecontainer">
-              <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
-            </div>
-          </li>
-        </ul>
-      </div>
-      <h1 class="title">Give it a Spin!</h1>
-      <div id="app"></div>
-      <script type="module" src="/main.js"></script>
-    </body>
-  </html>
 
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/donut.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donut App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<canvas class="webgl"></canvas>
+<body>
+  
+  <nav>
+    <a href="/" id="navTitle">Donut</a>
+    <ul>
+      <li><a href="https://www.google.com" target="_blank">Explore</a></li>
+      <li><a href="https://www.linkedin.com/in/samuel-stollman" target="_blank">Connect</a></li>
+      <li><a href="https://github.com/stollmansatwit" target="_blank">Github</a></li>
+      <li><a href="https://drive.google.com/file/d/1ssoF0_21y5q3bDBWd7yJ-9_0nwgqrhcI/view?usp=sharing"
+          target="_blank">Resume</a></li>
+  </nav>
+  </ul>
+  <div class="sidebar">
+    <ul>
+      <li>
+        <label for="myRange" style="color: white; font-size: 14px;">Geometry Resolution:</label>
+        <div class="slidecontainer">
+          <input type="range" min="4" max="512" value="32" step="4" class="slider" id="myRange">
+        </div>
+      </li>
+      <li><input type="checkbox" id="displacement">Add Random Displacement Map</li>
+      <li><input type="checkbox" id="aarush">Add Aarush Displacement Map</li>
+      <li><input type="checkbox" id="wireframe">Toggle Wireframe</li>
+      <li><input type="checkbox" id="zoom">Enable Zoom</li>
+      <li><input type="checkbox" id="sphere">Sphere</li>
+      <li><input type="checkbox" id="cube">Cube</li>
+      <li><input type="checkbox" id="ellipsoid">Ellipsoid</li>
+      
+    </ul>
+  </div>
+  <div class="screen-size-warning">
+    <h2>Screen Too Small</h2>
+    <p>Please increase your screen size.</p>
+  </div>
+  <h1 class="title">Give it a Spin!</h1>
+  <div id="app"></div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
