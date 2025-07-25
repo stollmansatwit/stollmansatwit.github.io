@@ -3,13 +3,17 @@ import '/style.css';
 import gsap from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+// Global variables
+let threeJsInitialized = false;
+
 // Check if screen is large enough for 3D rendering
 function isScreenLargeEnough() {
-    return window.innerWidth >= 1000;
+    return window.innerWidth >= 300;
 }
 
 // Only initialize Three.js if screen is large enough
 if (isScreenLargeEnough()) {
+    threeJsInitialized = true;
     //Scene
     const scene = new THREE.Scene();
 
@@ -28,7 +32,6 @@ let savedLinks = [
     "https://t4.ftcdn.net/jpg/04/43/18/67/360_F_443186712_DNJoCbUlLfAyBozDGS8buHdqDn8cgt3N.jpg",
     "https://as2.ftcdn.net/v2/jpg/03/74/43/45/1000_F_374434586_WYizDJCJhPeRwyHPUACSMAyQyGNBuEKG.jpg",
     "https://t3.ftcdn.net/jpg/01/00/14/64/360_F_100146497_A3XOehSzMX2WmdqdNHYKfiuKClz5pLDp.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/Coccinella-septempunctata-15-fws.jpg",
     "https://media.istockphoto.com/id/1325685263/photo/4k-black-and-white-organic-polygon-shape-background.jpg?s=612x612&w=0&k=20&c=EXTB0-0SGBmMfYAX4U84v9TCKNC8_lG4IJoaXlsomoE=",
     "https://media.istockphoto.com/id/973897096/photo/abstract-curves-parametric-curved-lines-and-shapes-4k-seamless-background.jpg?s=612x612&w=0&k=20&c=E4AVFVJxxpfZfrwt8m5Io0ZOGA2EljGnkw7gHq77vpk=",
     "https://media.istockphoto.com/id/1269606281/photo/jagged-rock-ambient-occlusion-map-texture-grayscale-ao-map.jpg?s=612x612&w=0&k=20&c=hFVOekZ4UBdl-V94_pGjKxgiWX-YqsmGSfnXxD-h6wY=",
@@ -36,8 +39,11 @@ let savedLinks = [
     "https://www.shutterstock.com/shutterstock/videos/1069022458/thumb/1.jpg?ip=x480",
     "https://miro.medium.com/v2/resize:fit:1400/1*3MDbIv2XHGzJyHnrgXOftA.png",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmXzTo_JEViaIk_khlCALYKjPAHwfhRRMe1Q&s",
-    "https://media.istockphoto.com/id/1149904625/vector/globe-curved-world-map-vector.jpg?s=612x612&w=0&k=20&c=lOuNH8W_vZmwcr_jruC0ezALEWEQR8H0oar43LNHBpU=",
-    
+    "/GreyscaleCells.png",
+    "/EdgeDistances.png",
+    "/DM1.jpeg",
+    "/DM2.jpeg",
+    "/DM3s.jpeg",
     ]
 
 let link = savedLinks[Math.floor(Math.random() * savedLinks.length)];
@@ -160,6 +166,9 @@ function displacementCheckboxBehavior() {
                 }
             });
         } else {
+            // Generate new random texture and animate back up
+            let newlink = savedLinks[Math.floor(Math.random() * savedLinks.length)];
+            material.displacementMap = loader.load(newlink);
             // No previous displacement, just animate up
             gsap.to(material, { displacementScale: 1 })
         }
@@ -498,11 +507,21 @@ window.addEventListener("mousemove", (e) => {
 
 // Optimized global resize handler
 let globalResizeTimeout;
+
 window.addEventListener("resize", () => {
     clearTimeout(globalResizeTimeout);
     globalResizeTimeout = setTimeout(() => {
-        if (!isScreenLargeEnough()) {
-            // Screen became too small - could optionally reload page
+        const screenLargeEnough = isScreenLargeEnough();
+        
+        if (!screenLargeEnough) {
+            // Screen became too small
+            return;
+        }
+        
+        // Check if Three.js was never initialized due to small initial screen size
+        if (screenLargeEnough && !threeJsInitialized) {
+            // Force a page reload to initialize Three.js
+            window.location.reload();
             return;
         }
         

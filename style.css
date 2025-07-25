@@ -9,7 +9,7 @@ body,
 html {
     overflow-x: hidden;
     font-family:"Roboto", sans-serif;
-    background-color:  #00000000;
+    background-color: #00000000;
 }
 
 .webgl {
@@ -64,6 +64,15 @@ nav ul{
     position: absolute; /* Position it absolutely */
     top: 1rem; /* Adjust the top position */
     left: 1rem; /* Adjust the left position */
+}
+  #navTitle2 {
+    color: white;
+    text-decoration: none;
+    padding: 0 1rem;
+    font-weight: bold;
+    position: absolute; /* Position it absolutely */
+    top: 1rem; /* Adjust the top position */
+    right: 1rem; /* Position from the right instead of left */
 }
 
 .title {
@@ -163,8 +172,15 @@ nav ul{
     margin-bottom: 1rem;
 }
 
-/* Hide Three.js canvas and other elements on small screens */
-@media (max-width: 1000px) {
+/* Hide warning on screens large enough for 3D */
+@media (min-width: 300px) {
+    .screen-size-warning {
+        display: none !important;
+    }
+}
+
+/* Show warning only on very small screens */
+@media (max-width: 299px) {
     .webgl {
         display: none !important;
     }
@@ -183,5 +199,81 @@ nav ul{
     
     .screen-size-warning {
         display: flex !important;
+    }
+}
+
+/* Mobile responsive design for screens 300px and up */
+@media (min-width: 300px) and (max-width: 999px) {
+    nav {
+        padding: 1.5rem 1rem;
+    }
+
+    nav ul {
+        gap: 0.1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        font-size: 1.0rem;
+        padding: 0.2rem 0.2rem;
+    }
+
+    #navTitle {
+        font-size: 1.1rem;
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    #navTitle2 {
+        font-size: 1.1rem;
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .title {
+        font-size: 1.7rem;
+        top: 16%;
+        left: 50%;
+        transform: translate(-50%, -10%);
+        padding: 0 1rem;
+        text-align: center;
+        position: absolute;
+        width: auto;
+    }
+
+    .sidebar {
+        width: 100vw;
+        height: auto;
+        top: unset;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 1rem 0.5rem;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar li {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+    }
+
+    .slider {
+        height: 4px;
+    }
+
+    .screen-size-warning {
+        font-size: 1.2rem;
+        padding: 1rem;
     }
 }
